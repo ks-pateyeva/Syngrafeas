@@ -1,0 +1,205 @@
+﻿<Window x:Class="SyngrafeasApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SyngrafeasApp"
+        mc:Ignorable="d"
+        Title="Syngrafeas" 
+        Height="550" 
+        Width="820" 
+        Name="mainWindow"
+        Icon="Resources/syngrafeas.png" ResizeMode="NoResize" IsEnabledChanged="mainWindow_IsEnabledChanged" Closing="mainWindow_Closing">
+    <Grid 
+        Margin="0,0,0,0" 
+        Height="500" 
+        Width="800">
+        <Menu 
+            Height="18"
+            VerticalAlignment="Top">
+            <MenuItem 
+                Header="Файл">
+                <MenuItem 
+                    Header="Новый проект" 
+                    Name="menuItemNew" Click="MenuItemNew_Click"/>
+                <MenuItem 
+                    Header="Открыть проект..."
+                    Name="menuItemOpen"
+                    Click="MenuItemOpen_Click"/>
+                <MenuItem 
+                    x:Name="miSave"
+                    Header="Сохранить" Click="MiSave_Click"/>
+                <MenuItem 
+                    Header="Cохранить как..."/>
+                <Separator/>
+                <MenuItem 
+                    Header="Выход"/>
+            </MenuItem>
+            <MenuItem
+                Header="Добавить">
+                <MenuItem Header="Добавить pаздел..." Click="MenuItem_Click"/>
+                <MenuItem Header="Добавить главу..." />
+                <Separator/>
+                <MenuItem Header="Добавить персонажа..."/>
+                <MenuItem Header="Добавить событие..." />
+                <MenuItem Header="Добавить место..."/>
+            </MenuItem>
+            <MenuItem
+                Header="Редактировать">
+                <MenuItem Header="Изменить персонажа..." />
+                <MenuItem Header="Изменить событие..." />
+                <MenuItem Header="Изменить место..."/>
+                <Separator />
+                <MenuItem Header="Удалить персонажа..."/>
+                <MenuItem Header="Удалить событие..."/>
+                <MenuItem Header="Удалить место..."/>
+                <MenuItem Header="Удалить главу..."/>
+            </MenuItem>
+            <MenuItem 
+                Header="Помощь">
+                <MenuItem 
+                    Header="Справка" />
+                <Separator/>
+                <MenuItem Header = "О программе"/>
+            </MenuItem>
+        </Menu>
+        <Rectangle 
+            x:Name="BackgroundRectangle"
+            Fill="#FFF0E4CE" 
+            StrokeThickness="0" 
+            HorizontalAlignment="Left" 
+            Height="482" 
+            Margin="0,18,0,0" 
+            VerticalAlignment="Top" 
+            Width="200"/>
+        <Image HorizontalAlignment="Left" 
+               x:Name="ToDoImage"
+               Height="51" 
+               Margin="80,170,0,0" 
+               VerticalAlignment="Top" 
+               Width="50"
+               Source="Resources\icon_project.png" 
+               RenderTransformOrigin="0.483,0.539" 
+               Cursor="Hand" 
+               MouseMove="TextBlock_MouseEnter" 
+               MouseLeave="TextBlock_ClickToOpen_MouseLeave" MouseUp="TextBlock_ClickToOpen_MouseLeftButtonDown"/>
+        <TabControl 
+            HorizontalAlignment="Left"        
+            Height="482" 
+            Margin="200,18,0,0" 
+            VerticalAlignment="Top" 
+            Width="590">
+            <TabItem 
+                Header="Заметки">
+                <Grid 
+                    Background="White">
+                    <TextBox 
+                        Name="NotesTextBox"
+                        HorizontalAlignment="Left" 
+                        Height="454" 
+                        TextWrapping="Wrap"
+                        VerticalAlignment="Top" 
+                        Width="584" 
+                        SpellCheck.IsEnabled="True"/>
+                </Grid>
+            </TabItem>
+            <TabItem 
+                Header="Персонажи">
+                <Grid 
+                    ShowGridLines="True"
+                    Background="White" 
+                    Margin="0,0,0,27">
+                    <DataGrid
+                        x:Name="personsDataGrid"
+                        HorizontalAlignment="Left" 
+                        Margin="0,0,0,-27" 
+                        Width="584" 
+                        AutoGenerateColumns = "False"
+                        CanUserReorderColumns="False" 
+                        CanUserResizeColumns="False" 
+                        CanUserResizeRows="False" 
+                        AutomationProperties.IsColumnHeader="True" 
+                        MouseDoubleClick="PersonsDataGrid_MouseDoubleClick" 
+                        IsReadOnly="True" Height="454" VerticalAlignment="Top">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Имя" 
+                                                Binding="{Binding Name}" Width="25*"/>
+                            <DataGridTextColumn Header="Описание" Binding="{Binding Description}" Width="45*"/>
+                            <DataGridTextColumn Header="Главы" Binding="{Binding Chapters}" Width="10*"/>
+                            <DataGridTextColumn Header="События" Binding="{Binding Events}" Width="10*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+            <TabItem 
+                Header="Места">
+                <DataGrid  
+                   Name="placesDataGrid"
+                    HorizontalAlignment="Left"        
+                    Height="454" 
+                    Margin="0,0,0,0"
+                    VerticalAlignment="Top" 
+                    Width="584" 
+                    AutoGenerateColumns = "False"
+                    CanUserReorderColumns="False" 
+                    CanUserResizeColumns="False" 
+                    CanUserResizeRows="False" 
+                    AutomationProperties.IsColumnHeader="True" 
+                    MouseDoubleClick="PlacesDataGrid_MouseDoubleClick" 
+                    IsReadOnly="True">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Место" Binding="{Binding Name}" Width="25*"/>
+                        <DataGridTextColumn Header="Описание" Binding="{Binding Description}" Width="45*"/>
+                        <DataGridTextColumn Header="Главы" Binding="{Binding Chapters}" Width="10*"/>
+                        <DataGridTextColumn Header="События" Binding="{Binding Events}" Width="10*"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+            <TabItem 
+                Header="События">
+                <DataGrid  
+                   Name="eventsDataGrid"
+                    HorizontalAlignment="Left"        
+                    Height="459" 
+                    Margin="0,0,0,-5"
+                    VerticalAlignment="Top" 
+                    Width="584" 
+                    AutoGenerateColumns = "False"
+                    CanUserReorderColumns="False" 
+                    CanUserResizeColumns="False" 
+                    CanUserResizeRows="False" 
+                    AutomationProperties.IsColumnHeader="True" IsReadOnly="True" MouseDoubleClick="eventsDataGrid_MouseDoubleClick">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Событие" Binding="{Binding Name}" Width="25*"/>
+                        <DataGridTextColumn Header="Время" Binding="{Binding Time}" Width="20*"/>
+                        <DataGridTextColumn Header="Описание" Binding="{Binding Description}" Width="40*"/>
+                        <DataGridTextColumn Header="Главы" Binding="{Binding Chapters}" Width="10*"/>
+                        <DataGridTextColumn Header="Персонажи" Binding="{Binding Persons}" Width="15*"/>
+                        <DataGridTextColumn Header="Места" Binding="{Binding Places}" Width="10*"/>
+
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+        </TabControl>
+        <TextBlock 
+            x:Name="TextBlock_ClickToOpen" 
+            HorizontalAlignment="Left" 
+            Margin="10,226,0,0" 
+            TextWrapping="Wrap" 
+            Text="Нажмите, чтобы открыть проект" 
+            VerticalAlignment="Top" 
+            Foreground="DodgerBlue" 
+            MouseEnter="TextBlock_MouseEnter" 
+            MouseLeave="TextBlock_ClickToOpen_MouseLeave" 
+            Cursor="Hand" 
+            MouseLeftButtonDown="TextBlock_ClickToOpen_MouseLeftButtonDown"/>
+        <TreeView 
+            HorizontalAlignment="Left" 
+            Height="482" 
+            Margin="0,18,0,0" 
+            VerticalAlignment="Top" 
+            Width="200"
+            Visibility="Hidden"
+            Name="ProjectTreeView"/>
+    </Grid>
+</Window>
